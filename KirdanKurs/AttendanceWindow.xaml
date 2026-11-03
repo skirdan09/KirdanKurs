@@ -1,0 +1,9 @@
+﻿<Window x:Class="AttendanceApp.AttendanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Посещаемость" Height="500" Width="800"
+        WindowStartupLocation="CenterOwner" Background="#FAF6F7" FontFamily="Segoe UI">
+    <Grid>
+        <TextBlock Text="Раздел Посещаемость в разработке" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="#8C6A73"/>
+    </Grid>
+</Window>

@@ -1,0 +1,280 @@
+﻿<Window x:Class="AttendanceApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Учёт посещаемости и успеваемости"
+        Height="720" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAF6F7"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#F2E6E9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,14"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="6" Margin="10,2">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#5A1A2B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StatCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="14" ShadowDepth="2"
+                                      Opacity="0.06" Color="#800020"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#800020"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="b" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="#9B1236"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SoftButton" TargetType="Button">
+            <Setter Property="Background" Value="#F5E6EA"/>
+            <Setter Property="Foreground" Value="#800020"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="b" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="#EBD0D8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#4A0E1B">
+            <StackPanel>
+                <Border Background="#350A13" Padding="20,24" CornerRadius="0,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="УЧЁТ" Foreground="#D9A3B1"
+                                   FontSize="12" FontWeight="Bold"/>
+                        <TextBlock Text="Посещаемость" Foreground="White"
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                        <TextBlock Text="и успеваемость" Foreground="#B27F8C"
+                                   FontSize="13"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Margin="0,16,0,0">
+                    <Button Content="Главная"
+                            Style="{StaticResource MenuButton}"
+                            Background="#5A1A2B" Foreground="White"
+                            FontWeight="SemiBold"/>
+                    <Button Content="Студенты"
+                            Style="{StaticResource MenuButton}" Click="BtnStudents_Click"/>
+                    <Button Content="Группы"
+                            Style="{StaticResource MenuButton}" Click="BtnGroups_Click"/>
+                    <Button Content="Дисциплины"
+                            Style="{StaticResource MenuButton}" Click="BtnDisciplines_Click"/>
+                    <Button Content="Посещаемость"
+                            Style="{StaticResource MenuButton}" Click="BtnAttendance_Click"/>
+                    <Button Content="Успеваемость"
+                            Style="{StaticResource MenuButton}" Click="BtnGrades_Click"/>
+                    <Button Content="Отчёты"
+                            Style="{StaticResource MenuButton}" Click="BtnReports_Click"/>
+                    <Button Content="Настройки"
+                            Style="{StaticResource MenuButton}" Click="BtnSettings_Click"/>
+                </StackPanel>
+
+                <Border Margin="16,40,16,16" Padding="14"
+                        Background="#350A13" CornerRadius="10">
+                    <StackPanel>
+                        <TextBlock x:Name="TxtCurrentUser"
+                                   Text="Пользователь"
+                                   Foreground="White" FontSize="13"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock x:Name="TxtRole"
+                                   Text="Роль: преподаватель"
+                                   Foreground="#B27F8C" FontSize="11" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="White" Padding="24,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Главный экран" FontSize="22"
+                                   FontWeight="SemiBold" Foreground="#350A13"/>
+                        <TextBlock x:Name="TxtDate" Text="Сегодня: —"
+                                   FontSize="13" Foreground="#8C6A73" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button Content="Сохранить копию БД"
+                                Style="{StaticResource PrimaryButton}"
+                                Click="BtnBackup_Click" Margin="0,0,10,0"/>
+                        <Button Content="Выход"
+                                Style="{StaticResource SoftButton}"
+                                Click="BtnLogout_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="24">
+
+                    <Border Background="White" CornerRadius="12" Padding="24"
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtGreeting"
+                                       Text="Добро пожаловать!"
+                                       FontSize="20" FontWeight="SemiBold"
+                                       Foreground="#350A13"/>
+                            <TextBlock Text="Здесь вы можете вести учёт посещаемости и успеваемости студентов."
+                                       Foreground="#8C6A73" FontSize="14" Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="Краткая статистика" FontSize="16"
+                               FontWeight="SemiBold" Foreground="#4A0E1B"
+                               Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Style="{StaticResource StatCard}" Width="220">
+                            <StackPanel>
+                                <TextBlock Text="Студентов" Foreground="#8C6A73" FontSize="13"/>
+                                <TextBlock x:Name="TxtStudentsCount" Text="0"
+                                           FontSize="32" FontWeight="Bold" Foreground="#800020"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource StatCard}" Width="220">
+                            <StackPanel>
+                                <TextBlock Text="Групп" Foreground="#8C6A73" FontSize="13"/>
+                                <TextBlock x:Name="TxtGroupsCount" Text="0"
+                                           FontSize="32" FontWeight="Bold" Foreground="#800020"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource StatCard}" Width="220">
+                            <StackPanel>
+                                <TextBlock Text="Дисциплин" Foreground="#8C6A73" FontSize="13"/>
+                                <TextBlock x:Name="TxtDisciplinesCount" Text="0"
+                                           FontSize="32" FontWeight="Bold" Foreground="#800020"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource StatCard}" Width="220">
+                            <StackPanel>
+                                <TextBlock Text="Задолженностей" Foreground="#8C6A73" FontSize="13"/>
+                                <TextBlock x:Name="TxtDebtsCount" Text="0"
+                                           FontSize="32" FontWeight="Bold" Foreground="#800020"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <TextBlock Text="Уведомления" FontSize="16"
+                               FontWeight="SemiBold" Foreground="#4A0E1B"
+                               Margin="0,24,0,12"/>
+                    <Border Background="White" CornerRadius="12" Padding="0">
+                        <StackPanel>
+                            <Border Background="#F5E6EA" Padding="16,12"
+                                    CornerRadius="12,12,0,0">
+                                <TextBlock Text="Студенты в зоне риска (задолженности и пропуски)"
+                                           FontWeight="SemiBold" Foreground="#800020"/>
+                            </Border>
+
+                            <DataGrid x:Name="GridNotifications"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="True"
+                                      HeadersVisibility="Column"
+                                      GridLinesVisibility="Horizontal"
+                                      BorderThickness="0"
+                                      Background="White"
+                                      RowBackground="White"
+                                      AlternatingRowBackground="#FAF6F7"
+                                      HorizontalGridLinesBrush="#EBD0D8"
+                                      Height="260">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Студент" Binding="{Binding StudentName}"
+                                                        Width="2*"/>
+                                    <DataGridTextColumn Header="Группа" Binding="{Binding GroupName}"
+                                                        Width="1*"/>
+                                    <DataGridTextColumn Header="Дисциплина" Binding="{Binding Discipline}"
+                                                        Width="2*"/>
+                                    <DataGridTextColumn Header="Пропуски" Binding="{Binding MissedCount}"
+                                                        Width="1*"/>
+                                    <DataGridTextColumn Header="Задолженность" Binding="{Binding DebtInfo}"
+                                                        Width="2*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
