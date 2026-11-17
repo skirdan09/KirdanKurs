@@ -4,6 +4,6 @@
         Title="Настройки" Height="500" Width="800"
         WindowStartupLocation="CenterOwner" Background="#FAF6F7" FontFamily="Segoe UI">
     <Grid>
-        <TextBlock Text="Раздел Настройки в разработке" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="#8C6A73"/>
+        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="#8C6A73"/>
     </Grid>
 </Window>
