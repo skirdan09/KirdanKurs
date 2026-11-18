@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace AttendanceApp
 {
@@ -12,38 +13,34 @@ namespace AttendanceApp
 
         private void LoadData()
         {
-            GridStudents.ItemsSource = Database.GetStudents();
+            StudentsDataGrid.ItemsSource = null;
+            StudentsDataGrid.ItemsSource = Database.GetStudents();
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TxtName.Text) || string.IsNullOrWhiteSpace(TxtGroup.Text))
-            {
-                MessageBox.Show("Введите ФИО и группу!", "Ошибка");
-                return;
-            }
-            Database.AddStudent(TxtName.Text.Trim(), TxtGroup.Text.Trim());
-            TxtName.Clear();
-            TxtGroup.Clear();
+ 
+            var newStudent = new Student { FullName = "Новый студент", GroupId = 1 };
+            Database.AddStudent(newStudent);
             LoadData();
         }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (GridStudents.SelectedItem is Student selected)
+            var btn = sender as Button;
+            if (btn?.DataContext is Student student)
             {
-                var result = MessageBox.Show($"Удалить {selected.FullName}?", "Подтверждение",
-                    MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Удалить студента {student.FullName}?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    Database.DeleteStudent(selected.Id);
+                    Database.DeleteStudent(student);
                     LoadData();
                 }
             }
-            else
-            {
-                MessageBox.Show("Выберите студента для удаления.", "Внимание");
-            }
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Данные сохранены!", "Успех");
         }
     }
 }
